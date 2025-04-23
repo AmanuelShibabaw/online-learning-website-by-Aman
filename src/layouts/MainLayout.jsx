@@ -1,17 +1,13 @@
 
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, BookOpen, Users, User, Settings } from "lucide-react";
 
-interface MainLayoutProps {
-  children: ReactNode;
-}
-
-const MainLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => {
+  const isActive = (path) => {
     return location.pathname === path;
   };
 
@@ -32,7 +28,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   return (
     <div className="min-vh-100 bg-light">
-      {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div 
           className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"
@@ -41,7 +36,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         />
       )}
       
-      {/* Mobile sidebar */}
       <div className="d-lg-none">
         <div 
           className={`position-fixed top-0 start-0 h-100 bg-white border-end transition ${sidebarOpen ? 'translate-0' : 'translate-start-100'}`} 
@@ -73,7 +67,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         </div>
       </div>
 
-      {/* Desktop sidebar */}
       <div className="d-none d-lg-block position-fixed h-100">
         <div className="d-flex flex-column h-100 bg-white border-end" style={{ width: '250px' }}>
           <div className="p-3 border-bottom">
@@ -98,7 +91,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         </div>
       </div>
 
-      {/* Main content */}
       <div className="ms-lg-auto" style={{ marginLeft: '250px' }}>
         <nav className="navbar navbar-expand-lg bg-white border-bottom sticky-top">
           <div className="container-fluid">
