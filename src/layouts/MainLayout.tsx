@@ -22,22 +22,34 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     { name: "Admin Portal", href: "/admin", icon: Settings },
   ];
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
   return (
     <div className="min-vh-100 bg-light">
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div 
+          className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"
+          style={{ zIndex: 1040 }}
+          onClick={closeSidebar}
+        />
+      )}
+      
       {/* Mobile sidebar */}
       <div className="d-lg-none">
-        {sidebarOpen && (
-          <div 
-            className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"
-            style={{ zIndex: 1040 }}
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
-        
-        <div className={`position-fixed top-0 start-0 h-100 bg-white border-end transition ${sidebarOpen ? 'translate-0' : 'translate-start-100'}`} style={{ width: '250px', zIndex: 1050 }}>
+        <div 
+          className={`position-fixed top-0 start-0 h-100 bg-white border-end transition ${sidebarOpen ? 'translate-0' : 'translate-start-100'}`} 
+          style={{ width: '250px', zIndex: 1050 }}
+        >
           <div className="d-flex align-items-center justify-content-between p-3 border-bottom">
             <h2 className="h5 text-primary mb-0">EduSpace</h2>
-            <button className="btn btn-link p-0" onClick={() => setSidebarOpen(false)}>
+            <button className="btn btn-link p-0" onClick={closeSidebar} aria-label="Close menu">
               <X size={20} />
             </button>
           </div>
@@ -51,7 +63,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                     ? 'bg-primary bg-opacity-10 text-primary'
                     : 'text-dark'
                 }`}
-                onClick={() => setSidebarOpen(false)}
+                onClick={closeSidebar}
               >
                 <item.icon size={20} className="me-2" />
                 {item.name}
@@ -92,7 +104,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           <div className="container-fluid">
             <button 
               className="btn btn-link d-lg-none"
-              onClick={() => setSidebarOpen(true)}
+              onClick={toggleSidebar}
+              aria-label="Toggle navigation"
             >
               <Menu size={24} />
             </button>
