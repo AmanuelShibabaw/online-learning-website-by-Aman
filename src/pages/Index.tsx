@@ -1,11 +1,7 @@
 
 import MainLayout from "@/layouts/MainLayout";
-import { CourseCard } from "@/components/ui/course-card";
-import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
 
-// Sample course data
 const featuredCourses = [
   {
     id: "1",
@@ -47,75 +43,90 @@ const popularCategories = [
 const Index = () => {
   return (
     <MainLayout>
-      <div className="max-w-7xl mx-auto">
+      <div className="container-fluid">
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-purple-700 to-indigo-800 rounded-xl p-8 mb-8 text-white">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-4">Expand Your Knowledge and Skills</h1>
-            <p className="text-xl mb-6">
-              Discover courses taught by expert instructors from around the world.
-              Learn at your own pace and achieve your goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button className="bg-white text-purple-700 hover:bg-gray-100">
-                Browse Courses
-              </Button>
-              <Button variant="outline" className="text-white border-white hover:bg-purple-600">
-                Learn More
-              </Button>
+        <div className="bg-primary bg-gradient text-white p-4 p-md-5 rounded mb-4">
+          <div className="row">
+            <div className="col-lg-8">
+              <h1 className="display-5 fw-bold mb-3">Expand Your Knowledge and Skills</h1>
+              <p className="lead mb-4">
+                Discover courses taught by expert instructors from around the world.
+                Learn at your own pace and achieve your goals.
+              </p>
+              <div className="d-flex flex-column flex-sm-row gap-2">
+                <button className="btn btn-light">Browse Courses</button>
+                <button className="btn btn-outline-light">Learn More</button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Search and Categories Section */}
-        <div className="mb-8">
-          <div className="relative mb-4">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search for courses..." 
-              className="pl-10"
+        {/* Search and Categories */}
+        <div className="mb-4">
+          <div className="position-relative mb-3">
+            <input 
+              type="text" 
+              className="form-control form-control-lg ps-5" 
+              placeholder="Search for courses..."
             />
+            <Search className="position-absolute top-50 translate-middle-y ms-3" size={20} />
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="d-flex flex-wrap gap-2">
             {popularCategories.map((category) => (
-              <Button 
-                key={category} 
-                variant="outline" 
-                size="sm"
-                className="rounded-full"
+              <button 
+                key={category}
+                className="btn btn-outline-primary rounded-pill"
               >
                 {category}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
 
         {/* Featured Courses */}
-        <div className="mb-10">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Featured Courses</h2>
-            <Button variant="ghost" className="text-purple-600">View All</Button>
+        <div className="mb-5">
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 className="h3">Featured Courses</h2>
+            <button className="btn btn-link text-primary text-decoration-none">View All</button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="row g-4">
             {featuredCourses.map((course) => (
-              <CourseCard 
-                key={course.id}
-                {...course}
-                onEnroll={(id) => console.log(`Enrolled in course ${id}`)}
-              />
+              <div key={course.id} className="col-12 col-md-6 col-lg-4">
+                <div className="card h-100">
+                  <img 
+                    src={course.coverImage}
+                    className="card-img-top"
+                    alt={course.title}
+                    style={{ height: '200px', objectFit: 'cover' }}
+                  />
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between align-items-start mb-2">
+                      <h5 className="card-title mb-0">{course.title}</h5>
+                      <span className="badge bg-primary bg-opacity-10 text-primary">
+                        {course.category}
+                      </span>
+                    </div>
+                    <p className="text-muted mb-2">{course.instructor}</p>
+                    <p className="card-text">{course.description}</p>
+                    <div className="d-flex justify-content-between text-muted small mb-3">
+                      <span>{course.duration}</span>
+                      <span>{course.totalLessons} lessons</span>
+                    </div>
+                    <button className="btn btn-primary w-100">Enroll Now</button>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* CTA Section */}
-        <div className="bg-gray-50 rounded-xl p-8 text-center mb-8">
-          <h2 className="text-2xl font-bold mb-3">Ready to Start Learning?</h2>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+        <div className="bg-light p-4 p-md-5 text-center rounded mb-4">
+          <h2 className="h3 mb-3">Ready to Start Learning?</h2>
+          <p className="text-muted mb-4 mx-auto" style={{ maxWidth: '600px' }}>
             Join thousands of students who are already expanding their knowledge and skills on our platform.
           </p>
-          <Button className="bg-purple-600 hover:bg-purple-700">
-            Sign Up Now
-          </Button>
+          <button className="btn btn-primary btn-lg">Sign Up Now</button>
         </div>
       </div>
     </MainLayout>
